@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - SpringAplicationStart",
+            "request": "launch",
+            "mainClass": "br.com.william.devdojo.SpringAplicationStart",
+            "projectName": "devdojo"
+        }
+    ]
+}

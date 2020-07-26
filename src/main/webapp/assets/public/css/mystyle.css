@@ -1,0 +1,157 @@
+
+.carousel .carousel-item {
+    height: 400px;
+}
+
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 350px;
+    height: 350px;
+}
+
+.preco-produto{
+    font-size: 25px; 	
+}
+
+.dados-adicionais{
+    font-size: 13px;	
+}
+.produto{
+    margin-top: 2%;
+}
+
+.titulo-painel{
+
+    margin-bottom: 25px;
+    border-bottom: 1px solid #D3D3D3;
+    border-width: 30%;
+    text-transform: capitalize;
+}
+.imagedropzone {
+    border:none;
+}
+.painel{
+    margin-top: 3%;
+}
+
+.lista-links{
+    text-transform: uppercase;
+
+    text-decoration: none;
+    color:white;
+}
+
+.lista-links li a{
+
+    text-decoration: none;
+    color:white;
+}
+.lista-links li{
+
+    text-decoration: none;
+    color:white;
+}
+.intregantes{
+
+    padding-left: 10%;
+}
+.intregantes img{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #D3D3D3;
+}
+.intregantes figcaption{
+    font-size: 15px;
+}
+.categoria{
+    text-transform: lowercase;
+    text-transform: capitalize;
+}
+/*.imagem-marca img{
+    width: 100px;
+    height: 100px;
+}
+
+.imagem-marca li {
+    display: inline;
+    padding: 20px;
+}
+
+.imagem-marca  {
+    margin-top: 10px;
+}*/
+.slider {
+    width: 90%;
+    margin: 100px auto;
+}
+.imagem-produto{
+    /*height: 400px;*/
+}
+.slick-fabricante{
+    width: 70%;
+    height: 50px;
+}
+.produto-em-destaque{
+
+}
+.capitalize{
+    text-transform: lowercase;
+    text-transform: capitalize;
+}
+.img-produto-amostra{
+    width: 100%;
+}
+.paragrafo {
+    text-indent: 30px;
+}
+#categoria{
+    margin-top: 5%;
+}
+#categoria ul li a{
+    color:black;
+}
+#categoria ul li a{
+    border-bottom: 1px solid #D3D3D3;
+}
+#categoria ul li a:link{
+    text-decoration: none;
+}
+
+
+#categoria ul{
+    list-style-type: none;
+}
+
+#apresentacao p{
+    text-indent: 15px;
+}
+#produto-amostra{
+    margin-top: 5%;
+}
+
+#imgs-produto {
+    /*margin-top: 3%;*/
+    width: 100%;
+    left: 0px;
+}/*
+#imgs-produto li{
+    display: inline;
+}
+
+*/#imgs-produto li img {
+    height: 80px;
+    width: 32%;
+    cursor: pointer;
+}
+footer{
+    margin-top: 5%;
+    color:white;
+}
+.slick-prev:before, .slick-next:before {
+  color: #696969 !important;
+}
+.imagem-marca {
+    width: 60px;
+}

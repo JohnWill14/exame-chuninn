@@ -18,15 +18,16 @@
                 <li class="breadcrumb-item active">Aqui você pode gerenciar as categorias dos veículos</li>
             </ol>
 
-            <c:if test="${message!=null}">
-                <!--caso haja algum erro-->
-                <div class="row">
-                    <div class="col-12">
-                        <mytag:mensagem tipo="${message.tipoDeMensagem}" message="${message.mensagem}" />
-                    </div>
-                </div>
-            </c:if>
+            <div  class="row">
+                <div id="mensagem-cliente" class="col-12">
+                    <c:if test="${message!=null}">
+                        <!--caso haja algum msg-->
 
+                        <mytag:mensagem tipo="${message.tipoDeMensagem}" message="${message.mensagem}" />
+
+                    </c:if>
+                </div>
+            </div>
             <main class="pagina">
 
 
@@ -119,7 +120,8 @@
                                                     <tbody>
                                                         <!--Lista de categorias-->
                                                         <c:forEach items="${categorias}" var="cat" >
-                                                            <tr>
+
+                                                            <tr id="id${cat.id==null?'':cat.id}" >
                                                                 <td>${cat.id}</td>
                                                                 <td>${cat.nome}</td>
                                                                 <td>
@@ -128,9 +130,9 @@
                                                                     </a>
                                                                 </td>
                                                                 <td >
-                                                                    <a  onclick="return confirm('Você quer realmente excluir ${cat.nome}')" href="<c:url value="/adm/categoria/remove/${cat.id}"/>" class="btn btn-danger btn-block">
+                                                                    <button  onclick="confirm('Você quer realmente excluir ${cat.nome}') == true ? excluiRegistro(${cat.id}) : ''"  class="btn btn-danger btn-block">
                                                                         <i class="far fa-trash-alt"></i>
-                                                                    </a>
+                                                                    </button>
                                                                 </td>
 
                                                             </tr>
@@ -145,6 +147,31 @@
 
 
                                 </div>
+                                <script>
+                                    function excluiRegistro(id) {
+
+                                        $.get("<c:url value="/adm/categoria/remove/"/>" + id, function (resp) {
+                                            var linha = document.getElementById("id" + id);
+                                            var msg = document.getElementById("mensagem-cliente");
+                                            
+                                            
+                                           while(msg.firstChild)msg.removeChild(msg.firstChild);                                            
+
+                                            var div = document.createElement("div");
+                                            if (resp == "ok") {
+                                                linha.remove();
+                                                div.className = "alert alert-success";
+                                                div.innerText = "Sucesso ao deletar categoria";
+                                            }else{
+                                                div.className = "alert alert-danger";
+                                                div.innerText = "Erro ao deletar categoria";
+                                            }
+
+                                            msg.appendChild(div);
+                                        }
+                                        );
+                                    }
+                                </script>
                             </c:when>
 
                             <c:when  test="${show.nome == 'ALTERAR'}" >

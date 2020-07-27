@@ -16,14 +16,16 @@
                 <li class="breadcrumb-item active">Aqui você pode gerenciar os fabricantes dos veículos</li>
             </ol>
 
-            <c:if test="${message!=null}">
-                <!--Caso haja algum erro-->
-                <div class="row">
-                    <div class="col-12">
+            <div  class="row">
+                <div id="mensagem-cliente" class="col-12">
+                    <c:if test="${message!=null}">
+                        <!--caso haja algum msg-->
+
                         <mytag:mensagem tipo="${message.tipoDeMensagem}" message="${message.mensagem}" />
-                    </div>
+
+                    </c:if>
                 </div>
-            </c:if>
+            </div>
 
             <main class="pagina">
 
@@ -209,7 +211,8 @@
                                                     </tfoot>
                                                     <tbody>
                                                         <c:forEach items="${lista}" var="cat" >
-                                                            <tr>
+                                                            
+                                                            <tr id="id${cat.id==null?'':cat.id}" >
                                                                 <td>${cat.id}</td>
                                                                 <td><img style="width: 80px; height: 70px;" src="<c:url value="/imagens/fabricantes/${cat.logo}" />"></td>
                                                                 <td>${cat.nome}</td>
@@ -217,7 +220,7 @@
                                                                     <div class="row">
                                                                         <div class="col-10"> 
 
-                                                                            <a  target="_blank" href="${cat.site}">
+                                                                            <a  target="_blank" href="http://${cat.site}">
                                                                                 ${cat.site}
 
                                                                             </a>
@@ -229,9 +232,11 @@
                                                                     <a href="<c:url value="/adm/fabricante/update/${cat.id}"/>" class="btn btn-warning btn-block"><i class="fas fa-marker"></i></a>
                                                                 </td>
                                                                 <td >
-                                                                    <a  onclick="return confirm('Você quer realmente excluir ${cat.nome}')" href="<c:url value="/adm/fabricante/remove/${cat.id}"/>" class="btn btn-danger btn-block"><i class="far fa-trash-alt"></i></a>
+                                                                    <button  onclick="confirm('Você quer realmente excluir ${cat.nome}') == true ? excluiRegistro(${cat.id}) : ''"  class="btn btn-danger btn-block">
+                                                                        <i class="far fa-trash-alt"></i>
+                                                                    </button>
                                                                 </td>
-
+                                                                
                                                             </tr>
                                                         </c:forEach>
                                                     </tbody>
@@ -243,6 +248,31 @@
 
                                 </div>
 
+                                <script>
+                                    function excluiRegistro(id) {
+
+                                        $.get("<c:url value="/adm/fabricante/remove/${cat.id}"/>" + id, function (resp) {
+                                            var linha = document.getElementById("id" + id);
+                                            var msg = document.getElementById("mensagem-cliente");
+
+                                           while(msg.firstChild)msg.removeChild(msg.firstChild);
+
+                                            var div = document.createElement("div");
+                                            
+                                            if (resp == "ok") {
+                                                 linha.remove();
+                                                div.className = "alert alert-success";
+                                                div.innerText = "Sucesso ao deletar fabricante";
+                                            }else{
+                                                div.className = "alert alert-danger";
+                                                div.innerText = "Erro ao deletar fabricante";
+                                            }
+
+                                            msg.appendChild(div);
+                                        }
+                                        );
+                                    }
+                                </script>
                             </c:when>
 
 

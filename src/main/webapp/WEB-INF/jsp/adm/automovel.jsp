@@ -367,7 +367,7 @@
                                                             <td>${obj.tipo.getNome()}</td>
                                                             <td>R$ ${obj.valor}</td>
                                                             <td>${obj.modelo.nome}</td>
-                                                            <td>${obj.fabricante.nome}</td>
+                                                            <td>${obj.modelo.fabricante.nome}</td>
                                                             <td>${obj.ano}</td>
                                                             <td>
                                                                 <javatime:format value="${obj.postagem}" pattern="dd/MM/yyyy" />

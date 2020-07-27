@@ -17,14 +17,16 @@
             </ol>
 
 
-            <c:if test="${message!=null}">
-                <!--Caso haja algum erro-->
-                <div class="row">
-                    <div class="col-12">
+            <div  class="row">
+                <div id="mensagem-cliente" class="col-12">
+                    <c:if test="${message!=null}">
+                        <!--caso haja algum msg-->
+
                         <mytag:mensagem tipo="${message.tipoDeMensagem}" message="${message.mensagem}" />
-                    </div>
+
+                    </c:if>
                 </div>
-            </c:if>
+            </div>
 
 
             <main class="pagina">
@@ -70,6 +72,18 @@
                                         <label for="nome" class="sr-only">Nome</label>
                                         <input type="text" class="form-control" id="nome" name="nome" placeholder="Insira o nome da modelo" required>
                                     </div>
+                                    <!--input do fabricante-->
+                                    <div class="form-group col-md-6">
+                                        <label for="fabricante" class="">Fabricante</label>
+                                        <select class="form-control"    id="fabricante" name="fabricante">
+                                            <option value="0" disabled>Selecione algum fabricante</option>
+                                            <c:forEach var="f" items="${fabricantes}">
+                                                <option value="${f.id}">
+                                                    ${f.nome}
+                                                </option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
                                     <div class="text-right">
                                         <button type="reset" class="btn btn-danger mb-2" title="Limpa todos os dados">Limpar </button>
                                         <button type="submit" class="btn btn-primary mb-2">Salvar </button>
@@ -106,6 +120,7 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Nome</th>
+                                                            <th>Fabricante</th>
                                                             <th></th>
                                                             <th></th>
                                                         </tr>
@@ -114,20 +129,24 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Nome</th>
+                                                            <th>Fabricante</th>
                                                             <th></th>
                                                             <th></th>
                                                         </tr>
                                                     </tfoot>
                                                     <tbody>
                                                         <c:forEach items="${lista}" var="cat" >
-                                                            <tr>
+                                                            <tr  id="id${cat.id==null?'':cat.id}" >
                                                                 <td>${cat.id}</td>
                                                                 <td>${cat.nome}</td>
+                                                                <td>${cat.fabricante.nome}</td>
                                                                 <td>
                                                                     <a href="<c:url value="/adm/modelo/update/${cat.id}"/>" class="btn btn-warning btn-block"><i class="fas fa-marker"></i></a>
                                                                 </td>
                                                                 <td >
-                                                                    <a  onclick="return confirm('Você quer realmente excluir ${cat.nome}')" href="<c:url value="/adm/modelo/remove/${cat.id}"/>" class="btn btn-danger btn-block"><i class="far fa-trash-alt"></i></a>
+                                                                    <button  onclick="confirm('Você quer realmente excluir ${cat.nome}') == true ? excluiRegistro(${cat.id}) : ''"  class="btn btn-danger btn-block">
+                                                                        <i class="far fa-trash-alt"></i>
+                                                                    </button>
                                                                 </td>
 
                                                             </tr>
@@ -140,6 +159,32 @@
 
 
                                 </div>
+                                <script>
+                                    function excluiRegistro(id) {
+
+                                        $.get("<c:url value="/adm/modelo/remove/${cat.id}"/>" + id, function (resp) {
+
+                                            var linha = document.getElementById("id" + id);
+                                            var msg = document.getElementById("mensagem-cliente");
+
+                                            while (msg.firstChild)
+                                                msg.removeChild(msg.firstChild);
+
+                                            var div = document.createElement("div");
+                                            if (resp == "ok") {
+                                                linha.remove();
+                                                div.className = "alert alert-success";
+                                                div.innerText = "Sucesso ao deletar modelo";
+                                            } else {
+                                                div.className = "alert alert-danger";
+                                                div.innerText = "Erro ao deletar modelo";
+                                            }
+
+                                            msg.appendChild(div);
+                                        }
+                                        );
+                                    }
+                                </script>
                             </c:when>
 
                             <c:when  test="${show.nome == 'ALTERAR'}" >
@@ -182,10 +227,23 @@
                                             </div>
                                             <div class="row">
                                                 <form class="form-inline" method="POST" action="<c:url value="/adm/modelo/save" />">
-                                                    <input type="hidden" name="id" value="${tipoVeiculo.id}" />
+                                                    <input type="hidden" name="id" value="${objeto.id}" />
                                                     <div class="form-group mx-sm-3 mb-2">
                                                         <label for="nome" class="sr-only">Nome</label>
-                                                        <input type="text" class="form-control" id="nome" name="nome" value="${tipoVeiculo.nome}">
+                                                        <input type="text" class="form-control" id="nome" name="nome" value="${objeto.nome}">
+                                                    </div>
+                                                    <!--input do fabricante-->
+                                                    <div class="form-group col-md-6">
+                                                        <label for="fabricante" class="">Fabricante</label>
+                                                        <select class="form-control"    id="fabricante" name="fabricante">
+                                                            <option value="0" disabled>Selecione algum fabricante</option>
+                                                            <c:forEach var="f" items="${fabricantes}">
+                                                                <option value="${f.id}"
+                                                                        ${objeto.fabricante.getId()==f.id? "selected":""}>
+                                                                    ${f.nome}
+                                                                </option>
+                                                            </c:forEach>
+                                                        </select>
                                                     </div>
                                                     <div class="text-right">
                                                         <button type="reset" class="btn btn-danger mb-2" title="Limpa todos os dados">Limpar </button>

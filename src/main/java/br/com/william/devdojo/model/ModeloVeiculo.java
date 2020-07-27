@@ -8,6 +8,7 @@ package br.com.william.devdojo.model;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,13 +20,17 @@ import javax.persistence.Table;
 public class ModeloVeiculo extends AbstractEntity{
     @Column(length = 20,nullable = false)
     private String nome;
-
+    @ManyToOne
+    private Fabricante fabricante;
     public ModeloVeiculo() {
     }
 
-    public ModeloVeiculo(String nome) {
+    public ModeloVeiculo(String nome, Fabricante fabricante) {
         this.nome = nome;
+        this.fabricante = fabricante;
     }
+
+   
 
     public String getNome() {
         return nome;
@@ -38,7 +43,8 @@ public class ModeloVeiculo extends AbstractEntity{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + Objects.hashCode(this.nome);
+        hash = 59 * hash + Objects.hashCode(this.fabricante);
         return hash;
     }
 
@@ -57,14 +63,18 @@ public class ModeloVeiculo extends AbstractEntity{
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
+        if (!Objects.equals(this.fabricante, other.fabricante)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "ModeloVeiculo{" + "nome=" + nome + '}';
+        return "ModeloVeiculo{" + "nome=" + nome + ", fabricante=" + fabricante + '}';
     }
 
+   
     
     
 }

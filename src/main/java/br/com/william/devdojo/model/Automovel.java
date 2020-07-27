@@ -26,8 +26,7 @@ public class Automovel extends AbstractEntity{
     private String descricao;
     
     private double valor;
-    @ManyToOne
-    private Fabricante fabricante;
+    
     
     @ManyToOne
     private ModeloVeiculo modelo;
@@ -53,12 +52,11 @@ public class Automovel extends AbstractEntity{
     public Automovel() {
     }
 
-    public Automovel(long id,String nome, String descricao, double valor, Fabricante fabricante, ModeloVeiculo modelo, TipoDeVeiculo tipo, LocalDateTime postagem, int ano, int kilometragem, String imagens, int indexTumblr) {
+    public Automovel(long id,String nome, String descricao, double valor,  ModeloVeiculo modelo, TipoDeVeiculo tipo, LocalDateTime postagem, int ano, int kilometragem, String imagens, int indexTumblr) {
         this.id=id;
         this.nome = nome;
         this.descricao = descricao;
         this.valor = valor;
-        this.fabricante = fabricante;
         this.modelo = modelo;
         this.tipo = tipo;
         this.postagem = postagem;
@@ -99,14 +97,6 @@ public class Automovel extends AbstractEntity{
 
     public void setValor(double valor) {
         this.valor = valor;
-    }
-
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(Fabricante fabricante) {
-        this.fabricante = fabricante;
     }
 
     public ModeloVeiculo getModelo() {
@@ -171,7 +161,6 @@ public class Automovel extends AbstractEntity{
         hash = 29 * hash + Objects.hashCode(this.nome);
         hash = 29 * hash + Objects.hashCode(this.descricao);
         hash = 29 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
-        hash = 29 * hash + Objects.hashCode(this.fabricante);
         hash = 29 * hash + Objects.hashCode(this.modelo);
         hash = 29 * hash + Objects.hashCode(this.tipo);
         return hash;
@@ -198,9 +187,7 @@ public class Automovel extends AbstractEntity{
         if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
-        if (!Objects.equals(this.fabricante, other.fabricante)) {
-            return false;
-        }
+       
         if (!Objects.equals(this.modelo, other.modelo)) {
             return false;
         }
@@ -212,7 +199,7 @@ public class Automovel extends AbstractEntity{
 
     @Override
     public String toString() {
-        return "Automovel{" + "nome=" + nome + ", descricao=" + descricao + ", valor=" + valor + ", fabricante=" + fabricante + ", modelo=" + modelo + ", tipo=" + tipo + ", postagem=" + postagem + ", ano=" + ano + ", kilometragem=" + kilometragem + ", imagens=" + imagens + ", indexTumblr=" + indexTumblr + '}';
+        return "Automovel{" + "nome=" + nome + ", descricao=" + descricao + ", valor=" + valor + ", modelo=" + modelo + ", tipo=" + tipo + ", postagem=" + postagem + ", ano=" + ano + ", kilometragem=" + kilometragem + ", imagens=" + imagens + ", indexTumblr=" + indexTumblr + '}';
     }
 
     

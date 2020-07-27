@@ -97,6 +97,11 @@ public class Fabricante extends AbstractEntity{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Fabricante{" + "nome=" + nome + ", site=" + site + ", logo=" + logo + '}';
+    }
     
     
 }

@@ -40,6 +40,14 @@ public class ModeloVeiculo extends AbstractEntity{
         this.nome = nome;
     }
 
+    public Fabricante getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Fabricante fabricante) {
+        this.fabricante = fabricante;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;

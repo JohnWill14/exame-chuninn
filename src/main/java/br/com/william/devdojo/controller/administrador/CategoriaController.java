@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -118,7 +119,8 @@ public class CategoriaController {
 
         return retorno;
     }
-
+    
+    @ResponseBody
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable("id") long id) {
 
@@ -129,10 +131,11 @@ public class CategoriaController {
         try {
             tipoDeVeiculoService.remove(categoria);
         } catch (Exception ex) {
-            return "redirect:/adm/categoria/index/4";
+            ex.printStackTrace();
+            return "erro";
         }
 
-        return "redirect:/adm/categoria/index/3";
+        return "ok";
     }
 
     /**

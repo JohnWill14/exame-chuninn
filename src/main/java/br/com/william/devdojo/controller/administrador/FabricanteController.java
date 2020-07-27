@@ -8,6 +8,7 @@ package br.com.william.devdojo.controller.administrador;
 import br.com.william.devdojo.message.Mensagem;
 import br.com.william.devdojo.message.TipoDeMensagem;
 import br.com.william.devdojo.model.Fabricante;
+import br.com.william.devdojo.model.ModeloVeiculo;
 import br.com.william.devdojo.service.FabricanteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -44,12 +46,13 @@ public class FabricanteController {
 
         return "adm/fabricante";
     }
-    
+
     /**
      * Renderiza um página para atualizar fabricante
+     *
      * @param id
      * @param update
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
     public String update(@PathVariable("id") long id, Model update) {
@@ -65,12 +68,12 @@ public class FabricanteController {
         return "/adm/fabricante";
     }
 
-    
     /**
      * Renderiza um página para criar um fabricante
+     *
      * @param id
      * @param update
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/add/")
     public String toSave(Model update) {
@@ -81,17 +84,18 @@ public class FabricanteController {
 
     /**
      * Cria tanto atualiza fabricante
+     *
      * @param modelo
      * @param model
-     * @return 
+     * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(@RequestParam("file") MultipartFile file,
             @ModelAttribute("fabricante") Fabricante fabricante, Model model) {
 
         String retorno = null;
-        
-        if (fabricante.getId() == null){
+
+        if (fabricante.getId() == null) {
             retorno = "redirect:/adm/fabricante/index/1";
         } else {
             retorno = "redirect:/adm/fabricante/index/5";
@@ -101,23 +105,22 @@ public class FabricanteController {
             fabricanteVeiculoService.save(fabricante, file);
         } catch (Exception ex) {
 
-            
             model.addAttribute("objeto", fabricante);
-        
+
             if (fabricante.getId() == null) {
                 model.addAttribute("message", new Mensagem("Erro ao salvar fabricante de veículo",
-                    TipoDeMensagem.ERROR));
-                 model.addAttribute("show", OperacoesSistema.SAVE);
-            
-                 retorno = "/adm/fabricante";
-            
+                        TipoDeMensagem.ERROR));
+                model.addAttribute("show", OperacoesSistema.SAVE);
+
+                retorno = "/adm/fabricante";
+
             } else {
-                
+
                 model.addAttribute("message", new Mensagem("Erro ao atualizar fabricante de veículo",
-                    TipoDeMensagem.ERROR));
+                        TipoDeMensagem.ERROR));
                 model.addAttribute("mostrarForm", true);
                 model.addAttribute("show", OperacoesSistema.ALTERAR);
-                
+
                 retorno = "/adm/fabricante";
             }
             return retorno;
@@ -126,15 +129,18 @@ public class FabricanteController {
         return retorno;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable("id") long id) {
-        
+
         try {
-            fabricanteVeiculoService.removeByID(id);
+            Fabricante fabricante = fabricanteVeiculoService.getById(id);
+            System.out.println(fabricante);
+            fabricanteVeiculoService.remove(fabricante);
         } catch (Exception ex) {
-            return "redirect:/adm/fabricante/index/4";
+            return "erro";
         }
-        return "redirect:/adm/fabricante/index/3";
+        return "ok";
     }
 
     /**

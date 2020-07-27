@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -142,7 +143,6 @@ public class AutomovelController {
             auto.setNome(allRequestParams.get("nome"));
             auto.setAno(Integer.parseInt(allRequestParams.get("ano")));
             auto.setKilometragem(Integer.parseInt(allRequestParams.get("kilometragem")));
-            auto.setFabricante(fabricanteService.getById(Long.parseLong(allRequestParams.get("fabricante"))));
             auto.setModelo(modeloVeiculoService.getById(Long.parseLong(allRequestParams.get("modelo"))));
             auto.setTipo(tipoDeVeiculo.getById(Long.parseLong(allRequestParams.get("tipo"))));
             auto.setValor(Double.parseDouble(allRequestParams.get("valor")));
@@ -183,7 +183,8 @@ public class AutomovelController {
         return retorno;
 
     }
-
+    
+    @ResponseBody
     @RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
     public String remove(@PathVariable("id") long id) {
 
@@ -192,10 +193,10 @@ public class AutomovelController {
             automovelService.removeByID(id);
         } catch (Exception ex) {
 
-            return "redirect:/adm/automovel/index/4";
+            return "erro";
         }
 
-        return "redirect:/adm/automovel/index/3";
+        return "ok";
     }
 
     /**

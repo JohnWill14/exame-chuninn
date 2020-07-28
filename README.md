@@ -47,11 +47,14 @@
 
 ## Como executar
 
+### Criar a database
 <p>
     O primeiro passo é criar a database no banco de dados mysql, para isso é só executar o script sql do arquivo devcar.sql. Você pode abrir o arquivo no workBench e executálo através dele. 
 </p>
 
 ![imagem](images/workbench.png "Imagem do workbench")
+
+### Compilar o programa
 <p>O jeito mais fácil do mundo é você abrir o projeto em uma IDE como NetBeans, eclipse, IntelliJ, entre outras. Também é necessário ter o <strong> maven </strong> instalado.</p>
 
 <p>
@@ -61,8 +64,12 @@
 ```bash
 $ mvn clean install
 ```
+
+### Executar ou na IDE ou no terminal
+<p>Caso você use uma IDE ela já possui uma interface que te permite a execução da aplicação  de uma forma simples.
+</p>
 <p>
-    Depois para executar basta executar o jar dentro da pasta target. Muitas aplicações são empacotadas como war, mas ao fazer isso não consegui atrelar ao meu tomcat e essa parte não vingou, mas a execução a partir de um jar se torna bem mais fácil do que o processo de um war :).
+    Para rodar a aplicação no terminal basta executar o jar dentro da pasta target. Muitas aplicações são empacotadas como war, mas ao fazer isso não consegui atrelar ao meu tomcat e essa parte não vingou, mas a execução a partir de um jar se torna bem mais fácil do que o processo de um war :).
 
 ```bash
 $ java -jar target/devcar-1.0.jar  
@@ -70,7 +77,7 @@ $ java -jar target/devcar-1.0.jar
 </p>
 
 <p>
-    A partir disso essa linda tela irá aparecer:
+    Depois de todo esse processo essa linda tela irá aparecer:
 </p>
 
 ![imagem](images/terminal.png "Imagem do terminal")

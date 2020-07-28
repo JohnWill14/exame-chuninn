@@ -221,7 +221,7 @@
                                                     <p class="display-4">Siga as normas:</p>
                                                     <ul>
                                                         <li class="lead">Nomes com mais de 2 letras;</li>
-                                                        <li class="lead">Máximo de 0 letras.</li>
+                                                        <li class="lead">Máximo de 20 letras.</li>
                                                     </ul>
                                                 </div>
                                             </div>

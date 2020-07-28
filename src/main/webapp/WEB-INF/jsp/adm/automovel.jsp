@@ -21,14 +21,16 @@
             </ol>
 
 
-            <c:if test="${message!=null}">
-                <!--caso haja algum erro-->
-                <div class="row">
-                    <div class="col-12">
+            <div  class="row">
+                <div id="mensagem-cliente" class="col-12">
+                    <c:if test="${message!=null}">
+                        <!--caso haja algum msg-->
+
                         <mytag:mensagem tipo="${message.tipoDeMensagem}" message="${message.mensagem}" />
-                    </div>
+
+                    </c:if>
                 </div>
-            </c:if>
+            </div>
 
 
             <main class="pagina">
@@ -127,11 +129,13 @@
                                         <!--input do fabricante-->
                                         <div class="form-group col-md-6">
                                             <label for="fabricante" class="">Fabricante</label>
-                                            <select class="form-control"    id="fabricante" name="fabricante">
+                                            <select class="form-control"    id="fabricante" name="fabricante"
+                                                    onclick="carregaModelos();">
+                                                <option value=""></option>
                                                 <option value="0" disabled>Selecione algum fabricante</option>
                                                 <c:forEach var="f" items="${fabricantes}">
                                                     <option value="${f.id}"
-                                                            ${objeto.fabricante.getId()==f.id? "selected":""}>
+                                                            ${objeto.modelo.fabricante.getId()==f.id? "selected":""}>
                                                         ${f.nome}
                                                     </option>
                                                 </c:forEach>
@@ -305,6 +309,32 @@
 
 
                                 }
+
+                                function carregaModelos() {
+                                    var selectFabricantes = document.getElementById("fabricante");
+                                    var option = selectFabricantes[selectFabricantes.selectedIndex];
+                                    var id = option.value;
+                                    var modelo = document.getElementById("modelo");
+
+                                    while (modelo.firstChild)
+                                        modelo.removeChild(modelo.firstChild);
+                                    var optionVazio = document.createElement("option");
+                                    optionVazio.value = "";
+                                    optionVazio.innerText = "Selecione algum modelo";
+                                    optionVazio.disabled = true;
+                                    modelo.appendChild(optionVazio);
+
+                                    $.get("<c:url value="/adm/automovel/modelosByTipo/"/>" + id, function (resp) {
+                                        for (let i = 0; i < resp.length; i++) {
+                                            var option = document.createElement("option");
+                                            option.value = resp[i].id;
+                                            option.innerText = resp[i].nome;
+
+                                            modelo.appendChild(option);
+                                        }
+                                    });
+
+                                }
                             </script>
 
                         </div>
@@ -362,7 +392,7 @@
                                                 </tfoot>
                                                 <tbody>
                                                     <c:forEach items="${lista}" var="obj" >
-                                                        <tr>
+                                                        <tr id="id${obj.id}">
                                                             <td>${obj.nome}</td>
                                                             <td>${obj.tipo.getNome()}</td>
                                                             <td>R$ ${obj.valor}</td>
@@ -377,7 +407,9 @@
                                                                 <a href="<c:url value="/adm/automovel/update/${obj.id}"/>" class="btn btn-warning btn-block"><i class="fas fa-marker"></i></a>
                                                             </td>
                                                             <td >
-                                                                <a  onclick="return confirm('Você quer realmente excluir ${obj.nome}')" href="<c:url value="/adm/automovel/remove/${obj.id}"/>" class="btn btn-danger btn-block"><i class="far fa-trash-alt"></i></a>
+                                                                <button  onclick="confirm('Você quer realmente excluir ${obj.nome}') == true ? excluiRegistro(${obj.id}) : ''"  class="btn btn-danger btn-block">
+                                                                    <i class="far fa-trash-alt"></i>
+                                                                </button>
                                                             </td>
 
                                                         </tr>
@@ -390,7 +422,33 @@
 
 
                             </div>
+                            <script>
+                                    function excluiRegistro(id) {
 
+                                        $.get("<c:url value="/adm/automovel/remove/"/>" + id, function (resp) {
+
+                                            var linha = document.getElementById("id" + id);
+                                            var msg = document.getElementById("mensagem-cliente");
+
+                                            while (msg.firstChild)
+                                                msg.removeChild(msg.firstChild);
+
+                                            var div = document.createElement("div");
+                                            if (resp == "ok") {
+                                                linha.remove();
+                                                div.className = "alert alert-success";
+                                                div.innerText = "Sucesso ao deletar automovel";
+                                            } else {
+                                                div.className = "alert alert-danger";
+                                                div.innerText = "Erro ao deletar automovel";
+                                            }
+
+                                            msg.appendChild(div);
+                                        }
+                                        );
+                                    }
+                                </script>
+                                
                         </c:when>
 
 

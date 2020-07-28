@@ -110,9 +110,9 @@
                                     <tr>
                                         <td>Fabricante:</td>
                                         <td>
-                                            <img class="border-0" alt="${produto.fabricante.nome}" 
-                                                 title="${produto.fabricante.nome}"  
-                                                 src="<c:url  value="/imagens/fabricantes/${produto.fabricante.logo}"/>" />
+                                            <img class="border-0" width="60%" height="70%" alt="${produto.modelo.fabricante.nome}" 
+                                                 title="${produto.modelo.fabricante.nome}"  
+                                                 src="<c:url  value="/imagens/fabricantes/${produto.modelo.fabricante.logo}"/>" />
                                         </td>
                                     </tr>
 

@@ -22,10 +22,13 @@
                 <h2>Quem somos</h2>
                 <hr/>
                 <p>
-                    Nosso objetivo é simular um sistema para uma pequena loja de carros na qual o cliente possa consultar os nossos produtos. Haverá um usuário administrador que vai ter o controle dos registros de carro, CRUD.
+                    Nosso objetivo é simular um sistema para uma pequena loja de carros,
+                    na qual o cliente possa consultar os nossos produtos. Haverá um usuário administrador,
+                    que vai ter o controle dos registros de carro, CRUD.
                 </p>
                 <p>
-                    A DevCar tem como filosofia de sempre tentar oferecer um sistema de auto nível que atenda bem as necessidades do cliente. Aqui você poderá visualizar carros de várias categorias, novidades, irá fazer buscas pelo nosso catálogo e se você for um dos administradores irá ter a chance de gerenciar categoria, modelos de veículos, marcas de fabricante e, principalmente, os automóveis da loja.
+                    A DevCar tem como filosofia de sempre tentar oferecer um sistema de auto nível que atenda bem as necessidades do cliente.
+                    Aqui você poderá visualizar carros de várias categorias, novidades, irá fazer buscas pelo nosso catálogo e se você for um dos administradores irá ter a chance de gerenciar categoria, modelos de veículos, marcas de fabricante e, principalmente, os automóveis da loja.
                 </p>
             </section>
             <section id="equipe"  >

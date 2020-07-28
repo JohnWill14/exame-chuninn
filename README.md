@@ -38,9 +38,9 @@
 
 ## Algumas fotos do sistema
 
-<img src="images/primeiraFoto.png" title="Imagem da tela inicial" width="800px" height="600px;" /> 
-<img src="images/segundaFoto.png" title="Imagem da tela de login" width="800px" height="600px;" /> 
-<img src="images/Terceira.png" title="Imagem da tela de dashboard só para usuários administrativos" width="800px" height="600px;" /> 
+<img src="images/primeiraFoto.png" title="Imagem da tela inicial" width="400px" height="300px;" /> 
+<img src="images/segundaFoto.png" title="Imagem da tela de login" width="400px" height="300px;" /> 
+<img src="images/Terceira.png" title="Imagem da tela de dashboard só para usuários administrativos" width="400px" height="300px;" /> 
 
 
 

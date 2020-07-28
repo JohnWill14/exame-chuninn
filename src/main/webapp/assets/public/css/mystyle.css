@@ -91,7 +91,7 @@
 }
 .slick-fabricante{
     width: 70%;
-    height: 50px;
+    height: 70px;
 }
 .produto-em-destaque{
 
@@ -151,7 +151,4 @@ footer{
 }
 .slick-prev:before, .slick-next:before {
   color: #696969 !important;
-}
-.imagem-marca {
-    width: 60px;
 }

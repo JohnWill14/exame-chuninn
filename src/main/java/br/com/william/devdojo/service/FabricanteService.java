@@ -25,13 +25,15 @@ import org.springframework.stereotype.Service;
 public class FabricanteService implements ServiceAbstract<Fabricante, Long> {
 
     private FabricanteRepository fabricanteRepository;
+    private ModeloVeiculoService modeloVeiculoService;
     private FileUtil fileUtil;//Gerencia imgs
     private static String diretoriosImg="/imagens/fabricantes/";
 
     @Autowired
-    public FabricanteService(FabricanteRepository fabricanteRepository, FileUtil fileUtil) {
+    public FabricanteService(FabricanteRepository fabricanteRepository, FileUtil fileUtil, ModeloVeiculoService modeloVeiculoService) {
         this.fabricanteRepository = fabricanteRepository;
         this.fileUtil = fileUtil;
+        this.modeloVeiculoService=modeloVeiculoService;
     }
 
     @Override
@@ -70,8 +72,12 @@ public class FabricanteService implements ServiceAbstract<Fabricante, Long> {
     @Override
     public void remove(Fabricante entidade) {
         
+        if(modeloVeiculoService.getAll().size()>0)
+            throw new RuntimeException("Não foi possível excluir registro");
+        
         //Deleta os diretório de imgs de um objeto
         fileUtil.deletImageWithDirectory(diretoriosImg+entidade.getLogo());
+        
         fabricanteRepository.delete(entidade);
 
     }

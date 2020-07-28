@@ -23,10 +23,12 @@ import org.springframework.stereotype.Service;
 public class TipoDeVeiculoService implements ServiceAbstract<TipoDeVeiculo, Long> {
 
     private TipoDeVeiculoRepository tipoDeVeiculoRepository;
+    private AutomovelService automovelService;
 
     @Autowired
-    public TipoDeVeiculoService(TipoDeVeiculoRepository tipoDeVeiculoRepository) {
+    public TipoDeVeiculoService(TipoDeVeiculoRepository tipoDeVeiculoRepository, AutomovelService automovelService) {
         this.tipoDeVeiculoRepository = tipoDeVeiculoRepository;
+        this.automovelService=automovelService;
     }
 
     @Override
@@ -55,6 +57,9 @@ public class TipoDeVeiculoService implements ServiceAbstract<TipoDeVeiculo, Long
 
     @Override
     public void remove(TipoDeVeiculo entidade) {
+         if(automovelService.getAll().size()>0)
+            throw new RuntimeException("Não foi possível excluir registro");
+        
         removeByID(entidade.getId());
     }
 

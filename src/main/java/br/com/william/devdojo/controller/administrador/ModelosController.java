@@ -40,10 +40,13 @@ public class ModelosController {
     @RequestMapping({"/", "/index/", "/{msg}", "/index/{msg}"})
     public String index(@PathVariable(name = "msg", required = false) Integer msg, Model index) {
         Mensagem mensagem = mensageByNumero(msg);
-        index.addAttribute("lista", modeloVeiculoService.getAll());
-        index.addAttribute("show", operacao.MOSTRAR_DADOS);
-        index.addAttribute("message", mensagem);
-
+        try {
+            index.addAttribute("lista", modeloVeiculoService.getAll());
+            index.addAttribute("show", operacao.MOSTRAR_DADOS);
+            index.addAttribute("message", mensagem);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return "adm/modelo";
     }
 

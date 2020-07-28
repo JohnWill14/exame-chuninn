@@ -8,6 +8,9 @@ package br.com.william.devdojo.controller.administrador;
 import br.com.william.devdojo.message.Mensagem;
 import br.com.william.devdojo.message.TipoDeMensagem;
 import br.com.william.devdojo.model.Automovel;
+import br.com.william.devdojo.model.Fabricante;
+import br.com.william.devdojo.model.ModeloVeiculo;
+import br.com.william.devdojo.model.TipoDeVeiculo;
 import br.com.william.devdojo.service.AutomovelService;
 import br.com.william.devdojo.service.FabricanteService;
 import br.com.william.devdojo.service.ModeloVeiculoService;
@@ -197,6 +200,26 @@ public class AutomovelController {
         }
 
         return "ok";
+    }
+    
+    @ResponseBody
+    @RequestMapping(value = "/modelosByTipo/{id}", method = RequestMethod.GET)
+    public List<ModeloVeiculo> getModelosByCategoria(@PathVariable("id") Long id) {
+        List<ModeloVeiculo> lista=null;
+        try {
+            Fabricante fabricante;
+            fabricante = fabricanteService.getById(id);
+            lista = modeloVeiculoService.getAll()
+                    .stream()
+                    .filter(modelo->modelo.getFabricante().equals(fabricante))
+                    .collect(Collectors.toList());
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            
+        }
+
+        return lista;
     }
 
     /**

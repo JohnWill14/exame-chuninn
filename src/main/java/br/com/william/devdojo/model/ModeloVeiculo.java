@@ -8,6 +8,7 @@ package br.com.william.devdojo.model;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ public class ModeloVeiculo extends AbstractEntity{
     @Column(length = 20,nullable = false)
     private String nome;
     @ManyToOne
+    @JoinColumn(name = "fabricante_id")
     private Fabricante fabricante;
     public ModeloVeiculo() {
     }

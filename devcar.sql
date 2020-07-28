@@ -27,6 +27,7 @@ SET time_zone = "+00:00";
 --
 DROP DATABASE IF EXISTS devcar;
 create database devcar;
+use devcar;
 CREATE TABLE `automovel` (
   `id` bigint(20) NOT NULL,
   `ano` int(11) DEFAULT NULL,
